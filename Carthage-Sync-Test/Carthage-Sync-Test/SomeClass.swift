@@ -15,25 +15,12 @@ class SomeClass {
     var array = [String]()
     
     func doSomethingThreadSafe() {
-        synchronize(lockObject, { () -> () in
+        
             for element in self.array {
                 NSLog("%@",element)
             }
-        })
     }
     
 }
 
-func synchronizeAndReturn<T>(lockObj: AnyObject!, closure: () -> T) -> T {
-    objc_sync_enter(lockObj)
-    var value: T = closure()
-    objc_sync_exit(lockObj)
-    return value
-}
-
-func synchronize(lock: AnyObject, closure: () -> ()) {
-    objc_sync_enter(lock)
-    closure()
-    objc_sync_exit(lock)
-}
 
